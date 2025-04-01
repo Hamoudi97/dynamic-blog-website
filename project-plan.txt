@@ -1,0 +1,7 @@
+My basec plan is to have the basic setup of the html and git made today. 
+
+Will finalize the CSS and HTML the following day.
+
+Will finalize the Javascript the day after that.
+
+The project should be completed by April 2, 2025.
