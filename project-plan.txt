@@ -5,9 +5,3 @@ Will finalize the CSS and HTML the following day.
 Will finalize the Javascript the day after that.
 
 The project should be completed by April 2, 2025.
-
-
-#82716e
-#e4decd
-#c2b490
-#acb7ae
