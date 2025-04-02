@@ -1,5 +1,5 @@
 # dynamic-blog-website
-Assignment 3: Build a Dynamic Blog Website Using Git and GitHub
+Building a Dynamic Blog Website Using Git and GitHub
 
 This is a dynamic blog website. It will allow the user to view their homepage, that displays a list of blog posts,a page to create new posts, and the ability to edit or delete existing posts. 
 
