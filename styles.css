@@ -12,6 +12,7 @@ body {
     line-height: 1.5;
     background-color: var(--main-color);
     padding-bottom: 80px;
+    box-sizing: border-box;
 }
 
 header {
