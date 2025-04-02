@@ -19,7 +19,7 @@
     </header>
 
     <main>
-      <section class="view-post">
+      <section id="view-post">
         <h2 id="post-title">Placeholder Post Title</h2>
         <div id="post-date"></div>
         <div id="post-image"></div>
@@ -30,7 +30,7 @@
         </div>
       </section>
 
-      <section class="edit-post">
+      <section id="edit-post">
         <h2>Edit Blog Post</h2>
         <form id="edit-post-form">
           <div class="form-content">
@@ -51,10 +51,11 @@
               class="paste-area"
               placeholder="Paste image here"
             ></div>
+            <div id="edit-image-preview" class="image-preview"></div>
           </div>
           <div class="post-actions">
             <button type="submit" class="btn">Save Changes</button>
-            <button type="button" class="btn">Cancel</button>
+            <button type="button" id="cancel-edit" class="btn">Cancel</button>
           </div>
         </form>
       </section>
