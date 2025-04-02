@@ -107,6 +107,66 @@ function loadSinglePost() {
   document.getElementById("edit-post").style.display = "none";
 }
 
+function showEditForm(post) {
+  document.getElementById("view-post").style.display = "none";
+  document.getElementById("edit-post").style.display = "block";
+
+  document.getElementById("edit-title").value = post.title;
+  document.getElementById("edit-content").value = post.content;
+
+  if (post.image) {
+    currentImage = post.image;
+    displayImagePreview(
+      post.image,
+      document.getElementById("edit-image-preview")
+    );
+  }
+
+  setupImageHandling("edit-image", "edit-paste-area", "edit-image-preview");
+
+  let editForm = document.getElementById("edit-post-form");
+  editForm.onsubmit = function (x) {
+    x.preventDefault();
+    saveEditedPost(post.id);
+  };
+
+  document.getElementById("cancel-edit").addEventListener("click", function () {
+    document.getElementById("edit-post").style.display = "none";
+    document.getElementById("view-post").style.display = "block";
+  });
+}
+
+function saveEditedPost(postId) {
+  const editTitle = document.getElementById("edit-title").value.trim();
+  const editContent = document.getElementById("edit-content").value.trim();
+
+  if (!editTitle || !editContent) {
+    alert("Please fill out the title and content sections.");
+    return;
+  }
+
+  let posts = JSON.parse(localStorage.getItem("blogPosts"));
+  let postIndex = posts.findIndex((p) => p.id === postId);
+
+  if (postIndex === -1) {
+    alert("Error updating post.");
+    return;
+  }
+
+  posts[postIndex].title = editTitle;
+  posts[postIndex].content = editContent;
+
+  if (currentImage !== posts[postIndex].image) {
+    posts[postIndex].image = currentImage;
+  }
+
+  localStorage.setItem("blogPosts", JSON.stringify(posts));
+
+  alert("Post updated successfully!");
+
+  window.location.reload();
+}
+
 function deletePost(postId) {
   let posts = JSON.parse(localStorage.getItem("blogPosts"));
   posts = posts.filter((post) => post.id !== postId);
@@ -167,7 +227,7 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
   });
 
   pasteArea.addEventListener("paste", function (x) {
-    e.preventDefault();
+    x.preventDefault();
 
     if (x.clipboardData && x.clipboardData.items) {
       let items = x.clipboardData.items;
