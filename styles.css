@@ -83,6 +83,8 @@ main {
   font-size: 18px;
   border-radius: 3px;
   border: 1px solid var(--fourth-color);
+  background-color: rgba(255, 255, 255, 0.75);
+  outline: none;
 }
 
 .form-content textarea {
@@ -90,7 +92,7 @@ main {
   height: 150px;
 }
 
-button[type="submit"] {
+.btn {
   background-color: var(--fourth-color);
   color: rgb(255, 255, 255);
   border: none;
@@ -98,6 +100,7 @@ button[type="submit"] {
   cursor: pointer;
   font-size: 16px;
   padding: 10px 15px;
+  margin-top: 15px;
 }
 
 button[type="submit"]:hover {
@@ -108,4 +111,38 @@ button[type="submit"]:hover {
 #post-title {
   margin: 10px 0;
   line-height: 1.5;
+}
+
+.image-upload {
+  margin-top: 10px;
+}
+
+.paste-area {
+  width: 96%;
+  height: 100px;
+  border: 2px dashed var(--fourth-color);
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.75);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paste-area:empty::before {
+  content: "Click or paste an image here";
+  color: #272626;
+}
+
+.paste-area:focus {
+  outline: none;
+}
+.image-help-text {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.729);
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
