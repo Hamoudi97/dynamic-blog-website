@@ -22,12 +22,14 @@
       <section id="create-post">
         <h2>Create New Blog Post</h2>
         <form id="new-post-form">
-          <label for="post-title">Title:</label>
-          <input type="text" name="post-title" id="post-title" required />
-
-          <label for="post-content">Content:</label>
-          <textarea name="post-content" id="post-content"></textarea>
-
+          <div class="form-content">
+            <label for="post-title">Title</label>
+            <input type="text" name="post-title" id="post-title" required />
+          </div>
+          <div class="form-content">
+            <label for="post-content">Content</label>
+            <textarea name="post-content" id="post-content"></textarea>
+          </div>
           <button type="submit">Create Post</button>
         </form>
       </section>
