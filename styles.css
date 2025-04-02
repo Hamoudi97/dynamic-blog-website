@@ -1,65 +1,148 @@
 :root {
-    --main-color: #c2b490;
-    --secondary-color: #acb7ae;
-    --third-color: #e4decd;
-    --fourth-color: #82716e;
+  --main-color: #c2b490;
+  --secondary-color: #acb7ae;
+  --third-color: #e4decd;
+  --fourth-color: #82716e;
+  --button-hover: #63504d;
 }
 
 body {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.5;
-    background-color: var(--main-color);
-    padding-bottom: 80px;
-    box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  background-color: var(--main-color);
+  padding-bottom: 80px;
 }
 
 header {
-    background-color: var(--third-color);
-    color: black;
-    padding: 20px 0;
-    text-align: center;
+  background-color: var(--third-color);
+  color: black;
+  padding: 20px 0;
+  text-align: center;
 }
 
 header h1 {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 nav ul {
-    list-style: none;
-    margin-right: 30px;
+  list-style: none;
+  margin-right: 30px;
 }
 
 nav ul li {
-    display: inline;
-   margin: 0 15px;
+  display: inline;
+  margin: 0 15px;
 }
 
 nav ul li a {
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 nav ul li a:hover {
-   color: rgb(75, 88, 51);
+  color: rgb(75, 88, 51);
 }
 
 footer {
-    background-color: var(--third-color);
-    color: black;
-    text-align: center;
-    padding: 7px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  background-color: var(--third-color);
+  color: black;
+  text-align: center;
+  padding: 7px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 main {
-    padding: 25px;
-    background-color: var(--secondary-color);
-    margin: 25px auto;
-    border-radius: 5px;
-    max-width: 900px;
+  padding: 25px;
+  background-color: var(--secondary-color);
+  margin: 25px auto;
+  border-radius: 5px;
+  max-width: 900px;
+}
+
+.form-content {
+  margin-bottom: 25px;
+}
+
+.form-content label {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.form-content input,
+.form-content textarea {
+  width: 98%;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 18px;
+  border-radius: 3px;
+  border: 1px solid var(--fourth-color);
+  background-color: rgba(255, 255, 255, 0.75);
+  outline: none;
+}
+
+.form-content textarea {
+  resize: none;
+  height: 150px;
+}
+
+.btn {
+  background-color: var(--fourth-color);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  margin-top: 15px;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--button-hover);
+}
+
+#post-content,
+#post-title {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.image-upload {
+  margin-top: 10px;
+}
+
+.paste-area {
+  width: 96%;
+  height: 100px;
+  border: 2px dashed var(--fourth-color);
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.75);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paste-area:empty::before {
+  content: "Click or paste an image here";
+  color: #272626;
+}
+
+.paste-area:focus {
+  outline: none;
+}
+.image-help-text {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.729);
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
