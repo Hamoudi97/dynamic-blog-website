@@ -4,6 +4,7 @@
   --third-color: #e4decd;
   --fourth-color: #82716e;
   --button-hover: #63504d;
+  --post-color: #b8bad6;
 }
 
 body {
@@ -103,7 +104,7 @@ main {
   margin-top: 15px;
 }
 
-button[type="submit"]:hover {
+.btn:hover {
   background-color: var(--button-hover);
 }
 
@@ -145,4 +146,44 @@ button[type="submit"]:hover {
   color: rgba(0, 0, 0, 0.729);
   margin-top: 7px;
   margin-bottom: 7px;
+}
+
+.post {
+  background-color: var(--post-color);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.post h3 {
+  margin-top: 0;
+}
+
+.post-actions {
+  margin-top: 20px;
+}
+
+.post-date {
+  color: var(--fourth-color);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.post-image {
+  max-width: 100%;
+  margin: 15px 0;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#post-date {
+  color: var(--fourth-color);
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+#post-content {
+  margin: 20px 0;
+  line-height: 1.5;
 }
