@@ -1,8 +1,9 @@
+//Variables
+
 let postsContainer = document.querySelector(".posts");
 let newPostForm = document.getElementById("new-post-form");
 let postTitleInput = document.getElementById("post-title");
 let postContentInput = document.getElementById("post-content");
-
 let currentImage = null;
 
 if (!localStorage.getItem("blogPosts")) {
@@ -200,7 +201,7 @@ function setupNewPostForm() {
         return;
       }
 
-      console.log("Current image before submission:", currentImage);
+      let posts = JSON.parse(localStorage.getItem("blogPosts")) || [];
 
       let newPost = {
         id: Date.now().toString(),
@@ -210,14 +211,19 @@ function setupNewPostForm() {
         date: new Date().toISOString(),
       };
 
-      console.log("New post to be saved:", newPost);
-
-      let posts = JSON.parse(localStorage.getItem("blogPosts"));
       posts.push(newPost);
-      localStorage.setItem("blogPosts", JSON.stringify(posts));
 
-      alert("Post uploaded successfully!");
-      window.location.href = "index.html";
+      try {
+        localStorage.setItem("blogPosts", JSON.stringify(posts));
+        alert("Post uploaded successfully!");
+        window.location.href = "index.html";
+      } catch (e) {
+        alert(
+          "Browser storage is full! Delete some posts or use smaller images."
+        );
+        localStorage.removeItem("blogPosts");
+        localStorage.setItem("blogPosts", JSON.stringify([newPost]));
+      }
     });
   }
 }
@@ -262,6 +268,13 @@ function setupImageHandling(
   fileInput.addEventListener("change", function (x) {
     let file = x.target.files[0];
     if (file && file.type.startsWith("image/")) {
+      // image check less than 3MB
+      if (file.size > 3 * 1024 * 1024) {
+        alert(
+          "Image file size is too large. Please select an image under 3MB."
+        );
+        return;
+      }
       let reader = new FileReader();
       reader.onload = function (event) {
         currentImage = event.target.result;
