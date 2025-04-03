@@ -3,6 +3,8 @@ let newPostForm = document.getElementById("new-post-form");
 let postTitleInput = document.getElementById("post-title");
 let postContentInput = document.getElementById("post-content");
 
+let currentImage = null;
+
 if (!localStorage.getItem("blogPosts")) {
   localStorage.setItem("blogPosts", JSON.stringify([]));
 }
@@ -186,8 +188,6 @@ function deletePost(postId) {
   window.location.href = "index.html";
 }
 
-let currentImage = null;
-
 function setupNewPostForm() {
   if (newPostForm) {
     newPostForm.addEventListener("submit", function (x) {
@@ -200,6 +200,8 @@ function setupNewPostForm() {
         return;
       }
 
+      console.log("Current image before submission:", currentImage);
+
       let newPost = {
         id: Date.now().toString(),
         title: title,
@@ -207,6 +209,8 @@ function setupNewPostForm() {
         image: currentImage,
         date: new Date().toISOString(),
       };
+
+      console.log("New post to be saved:", newPost);
 
       let posts = JSON.parse(localStorage.getItem("blogPosts"));
       posts.push(newPost);
@@ -231,17 +235,18 @@ function setupImageHandling(
 
   if (!fileInput || !pasteArea || !imagePreview || !removeButton) return;
 
-  let newFileInput = fileInput.cloneNode(true);
-  fileInput.parentNode.replaceChild(newFileInput, fileInput);
-  fileInput = newFileInput;
-
-  let newPasteArea = pasteArea.cloneNode(true);
-  pasteArea.parentNode.replaceChild(newPasteArea, pasteArea);
-  pasteArea = newPasteArea;
+  let clearImage = () => {
+    imagePreview.innerHTML = "";
+    currentImage = null;
+    fileInput.value = "";
+    pasteArea.innerHTML = "";
+    pasteArea.classList.remove("has-image");
+    removeButton.style.display = "none";
+  };
 
   removeButton.addEventListener("click", function (x) {
     x.preventDefault();
-    x.stopPropagation();
+    clearImage();
 
     imagePreview.innerHTML = "";
     currentImage = null;
