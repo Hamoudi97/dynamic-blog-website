@@ -3,6 +3,8 @@ let newPostForm = document.getElementById("new-post-form");
 let postTitleInput = document.getElementById("post-title");
 let postContentInput = document.getElementById("post-content");
 
+let currentImage = null;
+
 if (!localStorage.getItem("blogPosts")) {
   localStorage.setItem("blogPosts", JSON.stringify([]));
 }
@@ -15,7 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
     loadSinglePost();
   } else if (currentPage === "new-post.html") {
     setupNewPostForm();
-    setupImageHandling("post-image", "paste-area", "image-preview");
+    setupImageHandling(
+      "post-image",
+      "paste-area",
+      "image-preview",
+      "remove-image"
+    );
   }
 });
 
@@ -118,11 +125,17 @@ function showEditForm(post) {
     currentImage = post.image;
     displayImagePreview(
       post.image,
-      document.getElementById("edit-image-preview")
+      document.getElementById("edit-image-preview"),
+      "edit-remove-image"
     );
   }
 
-  setupImageHandling("edit-image", "edit-paste-area", "edit-image-preview");
+  setupImageHandling(
+    "edit-image",
+    "edit-paste-area",
+    "edit-image-preview",
+    "edit-remove-image"
+  );
 
   let editForm = document.getElementById("edit-post-form");
   editForm.onsubmit = function (x) {
@@ -175,8 +188,6 @@ function deletePost(postId) {
   window.location.href = "index.html";
 }
 
-let currentImage = null;
-
 function setupNewPostForm() {
   if (newPostForm) {
     newPostForm.addEventListener("submit", function (x) {
@@ -189,6 +200,8 @@ function setupNewPostForm() {
         return;
       }
 
+      console.log("Current image before submission:", currentImage);
+
       let newPost = {
         id: Date.now().toString(),
         title: title,
@@ -196,6 +209,8 @@ function setupNewPostForm() {
         image: currentImage,
         date: new Date().toISOString(),
       };
+
+      console.log("New post to be saved:", newPost);
 
       let posts = JSON.parse(localStorage.getItem("blogPosts"));
       posts.push(newPost);
@@ -207,12 +222,42 @@ function setupNewPostForm() {
   }
 }
 
-function setupImageHandling(fileInputId, pasteAreaId, previewId) {
+function setupImageHandling(
+  fileInputId,
+  pasteAreaId,
+  previewId,
+  removeButtonId
+) {
   let fileInput = document.getElementById(fileInputId);
   let pasteArea = document.getElementById(pasteAreaId);
   let imagePreview = document.getElementById(previewId);
+  let removeButton = document.getElementById(removeButtonId);
 
-  if (!fileInput || !pasteArea || !imagePreview) return;
+  if (!fileInput || !pasteArea || !imagePreview || !removeButton) return;
+
+  let clearImage = () => {
+    imagePreview.innerHTML = "";
+    currentImage = null;
+    fileInput.value = "";
+    pasteArea.innerHTML = "";
+    pasteArea.classList.remove("has-image");
+    removeButton.style.display = "none";
+  };
+
+  removeButton.addEventListener("click", function (x) {
+    x.preventDefault();
+    clearImage();
+
+    imagePreview.innerHTML = "";
+    currentImage = null;
+
+    fileInput.value = "";
+
+    pasteArea.innerHTML = "";
+    pasteArea.classList.remove("has-image");
+
+    removeButton.style.display = "none";
+  });
 
   fileInput.addEventListener("change", function (x) {
     let file = x.target.files[0];
@@ -220,7 +265,9 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
       let reader = new FileReader();
       reader.onload = function (event) {
         currentImage = event.target.result;
-        displayImagePreview(currentImage, imagePreview);
+        displayImagePreview(currentImage, imagePreview, removeButtonId);
+        pasteArea.innerHTML = "";
+        pasteArea.classList.add("has-image");
       };
       reader.readAsDataURL(file);
     }
@@ -239,7 +286,9 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
 
           reader.onload = function (event) {
             currentImage = event.target.result;
-            displayImagePreview(currentImage, imagePreview);
+            displayImagePreview(currentImage, imagePreview, removeButtonId);
+            pasteArea.innerHTML = "";
+            pasteArea.classList.add("has-image");
           };
 
           reader.readAsDataURL(blob);
@@ -254,6 +303,20 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
   });
 }
 
-function displayImagePreview(imageData, previewElement) {
-  previewElement.innerHTML = `<img src="${imageData}" alt="Image Preview">`;
+function displayImagePreview(imageData, previewElement, removeButtonId) {
+  if (!previewElement) return;
+
+  previewElement.innerHTML = "";
+
+  let img = document.createElement("img");
+  img.src = imageData;
+  img.alt = "Image Preview";
+  img.className = "preview-image";
+
+  previewElement.appendChild(img);
+
+  let removeButton = document.getElementById(removeButtonId);
+  if (removeButton) {
+    removeButton.style.display = "block";
+  }
 }
