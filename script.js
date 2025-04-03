@@ -15,7 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
     loadSinglePost();
   } else if (currentPage === "new-post.html") {
     setupNewPostForm();
-    setupImageHandling("post-image", "paste-area", "image-preview");
+    setupImageHandling(
+      "post-image",
+      "paste-area",
+      "image-preview",
+      "remove-image"
+    );
   }
 });
 
@@ -118,11 +123,17 @@ function showEditForm(post) {
     currentImage = post.image;
     displayImagePreview(
       post.image,
-      document.getElementById("edit-image-preview")
+      document.getElementById("edit-image-preview"),
+      "edit-remove-image"
     );
   }
 
-  setupImageHandling("edit-image", "edit-paste-area", "edit-image-preview");
+  setupImageHandling(
+    "edit-image",
+    "edit-paste-area",
+    "edit-image-preview",
+    "edit-remove-image"
+  );
 
   let editForm = document.getElementById("edit-post-form");
   editForm.onsubmit = function (x) {
@@ -207,12 +218,41 @@ function setupNewPostForm() {
   }
 }
 
-function setupImageHandling(fileInputId, pasteAreaId, previewId) {
+function setupImageHandling(
+  fileInputId,
+  pasteAreaId,
+  previewId,
+  removeButtonId
+) {
   let fileInput = document.getElementById(fileInputId);
   let pasteArea = document.getElementById(pasteAreaId);
   let imagePreview = document.getElementById(previewId);
+  let removeButton = document.getElementById(removeButtonId);
 
-  if (!fileInput || !pasteArea || !imagePreview) return;
+  if (!fileInput || !pasteArea || !imagePreview || !removeButton) return;
+
+  let newFileInput = fileInput.cloneNode(true);
+  fileInput.parentNode.replaceChild(newFileInput, fileInput);
+  fileInput = newFileInput;
+
+  let newPasteArea = pasteArea.cloneNode(true);
+  pasteArea.parentNode.replaceChild(newPasteArea, pasteArea);
+  pasteArea = newPasteArea;
+
+  removeButton.addEventListener("click", function (x) {
+    x.preventDefault();
+    x.stopPropagation();
+
+    imagePreview.innerHTML = "";
+    currentImage = null;
+
+    fileInput.value = "";
+
+    pasteArea.innerHTML = "";
+    pasteArea.classList.remove("has-image");
+
+    removeButton.style.display = "none";
+  });
 
   fileInput.addEventListener("change", function (x) {
     let file = x.target.files[0];
@@ -220,7 +260,9 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
       let reader = new FileReader();
       reader.onload = function (event) {
         currentImage = event.target.result;
-        displayImagePreview(currentImage, imagePreview);
+        displayImagePreview(currentImage, imagePreview, removeButtonId);
+        pasteArea.innerHTML = "";
+        pasteArea.classList.add("has-image");
       };
       reader.readAsDataURL(file);
     }
@@ -239,7 +281,9 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
 
           reader.onload = function (event) {
             currentImage = event.target.result;
-            displayImagePreview(currentImage, imagePreview);
+            displayImagePreview(currentImage, imagePreview, removeButtonId);
+            pasteArea.innerHTML = "";
+            pasteArea.classList.add("has-image");
           };
 
           reader.readAsDataURL(blob);
@@ -254,6 +298,20 @@ function setupImageHandling(fileInputId, pasteAreaId, previewId) {
   });
 }
 
-function displayImagePreview(imageData, previewElement) {
-  previewElement.innerHTML = `<img src="${imageData}" alt="Image Preview">`;
+function displayImagePreview(imageData, previewElement, removeButtonId) {
+  if (!previewElement) return;
+
+  previewElement.innerHTML = "";
+
+  let img = document.createElement("img");
+  img.src = imageData;
+  img.alt = "Image Preview";
+  img.className = "preview-image";
+
+  previewElement.appendChild(img);
+
+  let removeButton = document.getElementById(removeButtonId);
+  if (removeButton) {
+    removeButton.style.display = "block";
+  }
 }
