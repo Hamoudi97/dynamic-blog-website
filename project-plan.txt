@@ -1,7 +1,41 @@
-My basec plan is to have the basic setup of the html and git made today. 
+PHASE 1: INITIAL SETUP (Day 1)
+- Initialize Git repository
+- Create core HTML structure:
+  • index.html (Homepage)
+  • new-post.html (Create Post)
+  • post.html (View/Edit Post)
+- Implement basic CSS framework
+- Set up GitHub repository
 
-Will finalize the CSS and HTML the following day.
 
-Will finalize the Javascript the day after that.
+PHASE 2: STYLING ENHANCEMENTS (Day 2)
+- Implement theme system with CSS variables
+- Style form validation
+- Create consistent component styles:
+  • Buttons
+  • Posts
+  • Forms
+  • Image Area
 
-The project should be completed by April 2, 2025.
+PHASE 3: Javascript Functionality (Day 3)
+- Setup localStorage 
+- Implement JavaScript CRUD operations:
+  • Create posts with title/content/images
+  • Read posts from localStorage
+  • Update existing posts
+  • Delete posts
+- Add image handling functionality:
+  • File upload
+  • Paste from clipboard
+  • Image previews
+
+PHASE 4: TESTING & POLISHING (Day 4)
+- Cross-browser testing
+- Mobile device testing
+- Error checking implemntation
+- localStorage limits handling
+- Documentation finalization
+- Final CSS styling
+- Final clean-up
+
+Final Project Completion: April 3, 2025

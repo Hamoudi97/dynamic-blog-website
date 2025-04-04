@@ -1,10 +1,21 @@
-# dynamic-blog-website
-Building a Dynamic Blog Website Using Git and GitHub
+# Dynamic Blog Website
 
-This is a dynamic blog website. It will allow the user to view their homepage, that displays a list of blog posts,a page to create new posts, and the ability to edit or delete existing posts. 
+A blog platform with CRUD functionality.
 
-It will be programmed with HTML, CSS, and JavaScript.
+## Features
 
-CRUD Operations will be implemented to create, read, update, and delete blog posts.
+- Create posts with rich text content
+- Image support (upload/paste from clipboard)
+- Automatic date tracking
+- Edit existing posts
+- Delete posts with confirmation
+- Post previews
+- Responsive design
+- LocalStorage persistence
 
-This project will be managed through Git and GitHub with proper version control workflows.
+## Technologies Used
+
+- **Frontend**: HTML, CSS, JavaScript
+- **Storage**: Browser LocalStorage
+- **Version Control**: Git & GitHub
+- **Features**: Paste-to-upload, Image previews, Form validation
