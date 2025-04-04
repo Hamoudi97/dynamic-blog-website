@@ -37,6 +37,7 @@ nav ul {
 nav ul li {
   display: inline;
   margin: 0 15px;
+  font-size: 18px;
 }
 
 nav ul li a {
@@ -157,18 +158,13 @@ main {
   outline: none;
 }
 
-.image-help-text {
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.729);
-  margin-top: 7px;
-  margin-bottom: 7px;
-}
-
 .post {
   background-color: var(--post-color);
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 5px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .post h3 {
@@ -239,6 +235,10 @@ input[type="file"] {
 
 .remove-image-btn:hover {
   background-color: var(--danger-color-hovor);
+}
+
+label {
+  font-size: 20px;
 }
 
 /* Media Queries for Mobile Devices */
